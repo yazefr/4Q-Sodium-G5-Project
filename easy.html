@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Easy Mode</title>
+        <link rel="stylesheet" href="mode.css">
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container-1">
+                <!-- Navigation -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="choice.html">Mode</a></li>
+                        <li><a id="nav-active" href="easy.html">Easy Mode</a></li>
+                        <li><a href="hard.html">Hard Mode</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Section -->
+        <section>
+            <h1>Simon Says - Easy Mode</h1>
+            <div id="timer">Time Left: <span id="time">10</span>s</div>
+            <p>Watch the sequence and repeat it!</p>
+            
+            <div class="board">
+                <div class="panel top-left yellow" data-color="yellow"></div>
+                <div class="panel top-right green" data-color="green"></div>
+                <div class="panel bottom-left blue" data-color="blue"></div>
+                <div class="panel bottom-right red" data-color="red"></div>
+            </div>
+
+            <div class="center">
+                <button id="start">Start Game</button>
+            </div>
+        </section>
+
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <br><br><br>
+            <p class="p-desc">
+                Copyright &copy;2025 <a href="#">Simon Says</a> 
+                | <a class="footer-a" href="#">SimonSays.com</a>
+                | <a class="footer-a" href="#">Sitemap</a>
+                | <a class="footer-a" href="#">Privacy Policy</a>
+                | <a class="footer-a" href="#">Terms of Service</a>
+            </p>
+	    </footer>
+        
+        <script src="easy.js"></script>
+    </body>
+</html>
