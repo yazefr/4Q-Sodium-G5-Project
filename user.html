@@ -196,7 +196,66 @@
                 <input type="text" id="username" name="username">
                 <button type="submit">Login</button>
             </form>
-        </section>
+
+            <script>
+                // Setss cookie function
+                function setCookie(cookieName, cookieValue, expires = "", path = "/") {
+                    // Set expires time
+                    if (expires == "") {
+                        let currentDate = new Date();
+                        expires = new Date(
+                            currentDate.getFullYear() + 1,
+                            currentDate.getMonth(),
+                            currentDate.getDate() 
+                        );
+                    }
+                
+                    let cookie = "";
+                    cookie += `${cookieName}=${encodeURIComponent(cookieValue)};`;
+                    cookie += `expires=${(new Date(expires)).toUTCString()};`;
+                    cookie += `path=${path};`;
+                
+                    document.cookie = cookie;
+                }
+                
+                // Gets cookie function
+                function getCookie(cookieName) {
+                    var key = cookieName + "=";
+                    var retrieveCookie = document.cookie;
+                    var ca = retrieveCookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i].trim();
+                        if (c.indexOf(key) === 0) {
+                            return c.substring(key.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+                
+                // Greet the user when pagee loads
+                window.onload = function () {
+                    var username = getCookie("username");
+                    if (username) {
+                        alert("Welcome, " + username + "!!!");
+                    }
+                }
+                
+                // This is when the form is submitted
+                document.querySelector("form").addEventListener("submit", function (e) {
+                    e.preventDefault(); // This stop the page from reloading the page
+                    var input = document.getElementById("username");
+                    var username = input.value.trim();
+                
+                    // Checks if number orr letter
+                    if (/^[A-Za-z0-9]+$/.test(username)) {
+                        setCookie("username", username); // Gi save na ni cookies
+                        location.reload(); // Reload to greet
+                    } else {
+                        alert("Try again! Username must contain only letters and numbers."); // If mali input
+                    }
+                });
+            </script>
+        </section> 
 
         <!-- Footer -->
         <footer class="footer">
@@ -209,7 +268,5 @@
                 | <a class="footer-a" href="#">Terms of Service</a>
             </p>
         </footer>
-    
-	    <script src="userManagement.js"></script>
     </body>
 </html>
