@@ -12,7 +12,7 @@
                 color: white;
                 background-repeat: no-repeat;
                 background-attachment: fixed;   
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.7);
                 font-family: "Times New Roman", serif;
                 text-align: center;
                 background-image: url(space2.png);
@@ -111,7 +111,7 @@
                 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
                 text-align: center;
                 width: 350px;
-                margin-top: 200px;
+                margin-top: 20px;
                 font-size: 1.3rem;
                 color: black;
             }
@@ -139,7 +139,34 @@
             .login-container button:hover {
                 background: #707478;
             }
-
+            .greeting {
+                margin-top: 70px; 
+                padding: 20px;
+                border-radius: 10px;
+                font-size: 1.5rem;
+            }
+            .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 20px;
+                visibility: hidden; /* Initially hidden */
+            }
+            .button {
+                font-size: 1.3rem;
+                margin-top: 20px;
+                width: 100px;
+                text-decoration: none;
+                color: black;
+                font-weight: bold;
+                background-color: white;
+                padding: 10px 30px;
+                border-radius: 30px;
+                border: 2px solid black;
+                display: inline-block;
+                text-align: center;
+            }
+            
             /* Footer */
             .footer {
                 position: absolute;
@@ -189,6 +216,10 @@
         </header>
 
         <!-- Section -->
+        <section class="greeting">
+            <h2 id="greeting"></h2> <!-- Greeting message will be displayed here -->
+        </section>
+
         <section class="login-container">
             <h2 class="h2-login">Login</h2>
             <form>
@@ -236,7 +267,11 @@
                 window.onload = function () {
                     var username = getCookie("username");
                     if (username) {
-                        alert("Welcome, " + username + "!!!");
+                        document.getElementById("greeting").innerHTML = "Welcome, " + username + "!!!";
+                        document.querySelector(".button-container").style.visibility = "visible"; // Shows the Play button
+                    } else {
+                        document.getElementById("greeting").innerHTML = "Welcome, guest!";
+                        document.querySelector(".button-container").style.visibility = "hidden"; // Hides the Play button
                     }
                 }
                 
@@ -254,8 +289,13 @@
                         alert("Try again! Username must contain only letters and numbers."); // If mali input
                     }
                 });
+
             </script>
         </section> 
+
+        <section class="button-container">
+            <a href="choice.html" class="button play-button">Play</a>
+        </section>
 
         <!-- Footer -->
         <footer class="footer">
