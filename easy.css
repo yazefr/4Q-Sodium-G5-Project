@@ -17,7 +17,8 @@ body {
     overflow-y: hidden;
 }
 
-/* header */.header {
+/* header */
+.header {
     position: relative; 
     top: 0;
     left: 0;
@@ -101,7 +102,7 @@ body {
 h1 {
     font-size: 3rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-top: 70px;
 }
 p {
     font-size: 1.5rem;
@@ -121,10 +122,10 @@ p {
     cursor: pointer;
     transition: opacity 0.2s;
 }
-.yellow { background-color: yellow; border-top-left-radius: 100%; }
-.green { background-color: green; border-top-right-radius: 100%; }
-.blue { background-color: blue; border-bottom-left-radius: 100%; }
-.red { background-color: red; border-bottom-right-radius: 100%; }
+.lightyellow { background-color: rgb(196, 223, 88); border-top-left-radius: 100%; }
+.lightblue { background-color: rgb(63, 184, 224); border-top-right-radius: 100%; }
+.pink { background-color: rgb(222, 57, 84); border-bottom-left-radius: 100%; }
+.teal { background-color: rgb(59, 221, 143); border-bottom-right-radius: 100%; }
 .panel:active {
     opacity: 0.5;
 }
@@ -143,16 +144,64 @@ button {
 button:hover {
     background-color: rgb(239, 243, 223);
 }
-#timer {
+
+/* Rawr */
+.score-container {
     position: absolute;
-    top: 80px;
-    right: 30px;
+    top: 100px; 
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#score, #high-score {
     font-size: 2rem;
     font-weight: bold;
     color: white;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5); 
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+.score-flash {
+    animation: flash 0.3s;
+}
+@keyframes flash {
+    0% { color: yellow; }
+    50% { color: white; }
+    100% { color: yellow; }
+}
+#game-over {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    display: none; 
+}
+#game-over-text {
+    margin-bottom: 20px;
+    margin-left: 8%;
+}
+#play-again {
+    font-size: 1.5rem;
     padding: 10px 20px;
-    border-radius: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 200px;
+    margin-left: 0px;
+}
+#play-again:hover {
+    background-color: rgb(239, 243, 223);
 }
 
 /* Footer */
@@ -161,22 +210,11 @@ button:hover {
     bottom: 0;
     width: 100%;
     text-align: center;
-    height: 150px;
-    margin-top: 20px;
-    padding-top: 0px;
-}
-.footer-info {
-    text-align: center;
-    align-items: center;
 }
 footer a {
     color: white; 
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: normal;
-    margin-bottom: 30px;
 }
 .footer a:hover {
     text-decoration: underline;
-    color: #e9ebfd;
 }
