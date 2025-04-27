@@ -150,7 +150,7 @@
                 justify-content: center;
                 gap: 15px;
                 margin-top: 20px;
-                visibility: hidden; /* Initially hidden */
+                visibility: hidden; /* Initially hiddennn*/
             }
             .button {
                 font-size: 1.3rem;
@@ -160,11 +160,15 @@
                 color: black;
                 font-weight: bold;
                 background-color: white;
-                padding: 10px 30px;
+                padding: 10px 10px;
                 border-radius: 30px;
                 border: 2px solid black;
                 display: inline-block;
                 text-align: center;
+                cursor: pointer;
+            }
+            .button:hover {
+                transform: scale(1.1);
             }
 
             /* Footer */
@@ -217,7 +221,7 @@
 
         <!-- Section -->
         <section class="greeting">
-            <h2 id="greeting"></h2> <!-- Greeting message will be displayed here -->
+            <h2 id="greeting"></h2> 
         </section>
 
         <section class="login-container">
@@ -227,75 +231,57 @@
                 <input type="text" id="username" name="username">
                 <button type="submit">Login</button>
             </form>
-
-            <script>
-                // Setss cookie function
-                function setCookie(cookieName, cookieValue, expires = "", path = "/") {
-                    // Set expires time
-                    if (expires == "") {
-                        let currentDate = new Date();
-                        expires = new Date(
-                            currentDate.getFullYear() + 1,
-                            currentDate.getMonth(),
-                            currentDate.getDate() 
-                        );
-                    }
-                
-                    let cookie = "";
-                    cookie += `${cookieName}=${encodeURIComponent(cookieValue)};`;
-                    cookie += `expires=${(new Date(expires)).toUTCString()};`;
-                    cookie += `path=${path};`;
-                
-                    document.cookie = cookie;
-                }
-                
-                // Gets cookie function
-                function getCookie(cookieName) {
-                    var key = cookieName + "=";
-                    var retrieveCookie = document.cookie;
-                    var ca = retrieveCookie.split(';');
-                    for (var i = 0; i < ca.length; i++) {
-                        var c = ca[i].trim();
-                        if (c.indexOf(key) === 0) {
-                            return c.substring(key.length, c.length);
-                        }
-                    }
-                    return "";
-                }
-                
-                // Greet the user when pagee loads
-                window.onload = function () {
-                    var username = getCookie("username");
-                    if (username) {
-                        document.getElementById("greeting").innerHTML = "Welcome, " + username + "!!!";
-                        document.querySelector(".button-container").style.visibility = "visible"; // Shows the Play button
-                    } else {
-                        document.getElementById("greeting").innerHTML = "Welcome, guest!";
-                        document.querySelector(".button-container").style.visibility = "hidden"; // Hides the Play button
-                    }
-                }
-                
-                // This is when the form is submitted
-                document.querySelector("form").addEventListener("submit", function (e) {
-                    e.preventDefault(); // This stop the page from reloading the page
-                    var input = document.getElementById("username");
-                    var username = input.value.trim();
-                
-                    // Checks if number orr letter
-                    if (/^[A-Za-z0-9]+$/.test(username)) {
-                        setCookie("username", username); // Gi save na ni cookies
-                        location.reload(); // Reload to greet
-                    } else {
-                        alert("Try again! Username must contain only letters and numbers."); // If mali input
-                    }
-                });
-
-            </script>
         </section> 
 
         <section class="button-container">
             <a href="choice.html" class="button play-button">Play</a>
+            <button id="logoutBtn" class="button">Logout</button>
         </section>
+
+        <script>
+            // Sets username in localStorage
+            function setUsername(username) {
+                localStorage.setItem("username", username); // Save username in localStorage
+            }
+
+            // Gets username from localStorage
+            function getUsername() {
+                return localStorage.getItem("username"); // Retrieve username from localStorage
+            }
+
+            // Greet the user when the page loads
+            window.onload = function () {
+                var username = getUsername();
+                if (username) {
+                    document.getElementById("greeting").innerHTML = "Welcome, " + username + "!!!";
+                    document.querySelector(".button-container").style.visibility = "visible"; // Show Play button
+                } else {
+                    document.getElementById("greeting").innerHTML = "Welcome, guest!";
+                    document.querySelector(".button-container").style.visibility = "hidden"; // Hide Play button
+                }
+            }
+
+            // Handle form submission
+            document.querySelector("form").addEventListener("submit", function (e) {
+                e.preventDefault(); // Prevent form submission and page reload
+                var input = document.getElementById("username");
+                var username = input.value.trim();
+
+                // Check if the username contains only letters and numbers
+                if (/^[A-Za-z0-9]+$/.test(username)) {
+                    setUsername(username); // Save the username to localStorage
+                    location.reload(); // Reload the page to greet the user
+                } else {
+                    alert("Try again! Username must contain only letters and numbers.");
+                }
+            });
+
+            // Logout functionality using clear() to clear all localStorage items
+            document.getElementById("logoutBtn").addEventListener("click", function () {
+                localStorage.clear(); // Clear all items from localStorage
+                location.reload(); // Reload the page to reflect logout
+            });
+        </script>
 
         <!-- Footer -->
         <footer class="footer">
