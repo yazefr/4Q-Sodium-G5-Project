@@ -52,6 +52,8 @@ function handleUserClick(e) {
     if (!clickable) return;
 
     const color = e.target.getAttribute('data-color');
+    if (!color) return; // Ignore clicks on elements without a valid data-color
+
     userSequence.push(color);
 
     for (let i = 0; i < userSequence.length; i++) {
