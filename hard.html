@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <title>Hard Mode</title>
-        <link rel="stylesheet" href="hard.css">
+        <link rel="stylesheet" href="easy.css">
     </head>
     <body>
         <!-- Header -->
@@ -22,25 +22,32 @@
         <!-- Section -->
         <section>
             <h1>Simon Says - Hard Mode</h1>
-            <div id="timer">Time Left: <span id="time">10</span>s</div>
-            <p>Watch the sequence and repeat it!</p>
             
+            <div class="score-container">
+                <div id="score">Score: 0</div>
+                <div id="high-score">High Score: 0</div>
+            </div>
+
             <div class="board">
-                <div class="panel top-left yellow" data-color="yellow"></div>
-                <div class="panel top-right green" data-color="green"></div>
-                <div class="panel bottom-left blue" data-color="blue"></div>
-                <div class="panel bottom-right red" data-color="red"></div>
+                <div class="panel lightyellow" data-color="lightyellow"></div>
+                <div class="panel lightblue" data-color="lightblue"></div>
+                <div class="panel pink" data-color="pink"></div>
+                <div class="panel teal" data-color="teal"></div>
             </div>
 
             <div class="center">
                 <button id="start">Start Game</button>
             </div>
+
+            <div id="game-over">
+                <div id="game-over-text"></div>
+                <button id="play-again" class="button">Play Again</button>
+            </div>
         </section>
 
-        
         <!-- Footer -->
         <footer class="footer">
-            <br><br><br><br>
+            <br><br><br>
             <p class="p-desc">
                 Copyright &copy;2025 <a href="#">Simon Says</a> 
                 | <a class="footer-a" href="#">SimonSays.com</a>
@@ -49,6 +56,7 @@
                 | <a class="footer-a" href="#">Terms of Service</a>
             </p>
 	    </footer>
-	<script src="hard.js"></script>
+        
+        <script src="easy.js"></script>
     </body>
 </html>
