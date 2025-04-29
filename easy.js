@@ -23,10 +23,10 @@ function flash(color) {
 
 // Turn ni Simon: add new color + i-play ang buong sequence
 function playSimon() {
-    clickable = false;              // bawal pa i click        
-    userSequence = [];              // i reset nung user sequence
+    clickable = false;                          // bawal pa i click        
+    userSequence = [];                          // i reset nung user sequence
     const randomColor = colors[Math.floor(Math.random() * colors.length)]; // random na kulay
-    simonSequence.push(randomColor);  // idagdag sa sequence kaya pushh
+    simonSequence.push(randomColor);            // idagdag sa sequence kaya pushh
 
     // flash ang buong sequence ni Simon
     for (let i = 0; i < simonSequence.length; i++) {
@@ -61,10 +61,10 @@ function handleUserClick(e) {
     updateScore();
 
     // if complete at tama ang sequence, edii next round
-    if (userSequence.length === simonSequence.length) {
+    if (userSequence.length == simonSequence.length) {
         setTimeout(function () {
             playSimon();
-        }, 1000); // may konting delay bago mag next round
+        }, 1000);               // may konting delay bago mag next round
     }
 }
 
@@ -96,7 +96,7 @@ function endGame() {
 // Play Again button functions
 document.getElementById('play-again').addEventListener('click', function () {
     resetGame();                       // reset game data
-    gameOverScreen.style.display = 'none'; // hide game-over screen
+    gameOverScreen.style.display = 'none'; // hide game-over screen kaya non
     playSimon();                       // start a new game
 });
 
