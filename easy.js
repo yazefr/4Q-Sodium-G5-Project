@@ -4,6 +4,7 @@ let score = 0;
 let highScore = 0;      
 let clickable = false;   
 let userSequence = [];  
+let flashSpeed = 600; // starting flash speed (ms) 
 
 const panels = document.querySelectorAll('.panel');             
 const startButton = document.getElementById('start');           
