@@ -4,7 +4,6 @@ let score = 0;
 let highScore = 0;      
 let clickable = false;   
 let userSequence = [];  
-let flashSpeed = 600; // starting flash speed (ms) 
 
 const panels = document.querySelectorAll('.panel');             
 const startButton = document.getElementById('start');           
@@ -20,29 +19,6 @@ function flash(color) {
     setTimeout(function () {
         panel.style.filter = 'brightness(1)';             
     }, 300);  // duration 
-}
-
-// Turn ni Simon: add new color + i-play ang buong sequence
-function playSimon() {
-    clickable = false;
-    userSequence = [];
-
-    // Add 10 random colors each round
-    for (let j = 0; j < 5; j++) {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        simonSequence.push(randomColor);
-    }
-
-    // Flash all colors in the sequence
-    for (let i = 0; i < simonSequence.length; i++) {
-        setTimeout(() => {
-            flash(simonSequence[i]);
-        }, i * flashSpeed);
-    }
-
-    setTimeout(() => {
-        clickable = true;
-    }, simonSequence.length * flashSpeed);
 }
 
 // Function pto handle the clicks of user in panel
@@ -110,7 +86,6 @@ function resetGame() {
     userSequence = [];
     score = 0;
     clickable = false;
-    flashSpeed = 600; // Reset flash speed!
     updateScore();
 }
 
