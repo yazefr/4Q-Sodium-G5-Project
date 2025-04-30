@@ -1,26 +1,3 @@
-
-Conversation opened. 1 unread message.
-
-Skip to content
-Using Philippine Science High School - SOCCSKSARGEN Region Campus Mail with screen readers
-
-1 of 738
-Fwd: cs
-Inbox
-
-SITTIE TAZNIMA MADID
-4:11 PM (0 minutes ago)
-to me
-
-
-
----------- Forwarded message ---------
-From: SITTIE TAZNIMA MADID <stsmadid22@src.pshs.edu.ph>
-Date: Wed, Apr 30, 2025 at 4:09 PM
-Subject: cs
-To: SITTIE TAZNIMA MADID <stsmadid22@src.pshs.edu.ph>, WENDY MAXINE BAGUIO <wendymbaguio@src.pshs.edu.ph>
-
-
 const colors = ['teal', 'lightblue', 'pink', 'lightyellow']; 
 let simonSequence = [];  
 let score = 0;          
