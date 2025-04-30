@@ -3,8 +3,7 @@ let simonSequence = [];
 let score = 0;          
 let highScore = 0;      
 let clickable = false;   
-let userSequence = [];  
-let flashSpeed = 600; // starting flash speed (ms) 
+let userSequence = [];   
 
 const panels = document.querySelectorAll('.panel');             
 const startButton = document.getElementById('start');           
@@ -24,25 +23,22 @@ function flash(color) {
 
 // Turn ni Simon: add new color + i-play ang buong sequence
 function playSimon() {
-    clickable = false;
-    userSequence = [];
+    clickable = false;                          // bawal pa i click        
+    userSequence = [];                          // i reset nung user sequence
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]; // random na kulay
+    simonSequence.push(randomColor);            // idagdag sa sequence kaya pushh
 
-    // Add 10 random colors each round
-    for (let j = 0; j < 5; j++) {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        simonSequence.push(randomColor);
-    }
-
-    // Flash all colors in the sequence
+    // flash ang buong sequence ni Simon
     for (let i = 0; i < simonSequence.length; i++) {
-        setTimeout(() => {
+        setTimeout(function () {
             flash(simonSequence[i]);
-        }, i * flashSpeed);
+        }, i * 600); // may delay bawat kulay
     }
 
-    setTimeout(() => {
+    // after ng sequence, allow na si user mag-click
+    setTimeout(function () {
         clickable = true;
-    }, simonSequence.length * flashSpeed);
+    }, simonSequence.length * 600);
 }
 
 // Function pto handle the clicks of user in panel
@@ -65,10 +61,10 @@ function handleUserClick(e) {
     updateScore();
 
     // if complete at tama ang sequence, edii next round
-    if (userSequence.length === simonSequence.length) {
+    if (userSequence.length == simonSequence.length) {
         setTimeout(function () {
             playSimon();
-        }, 1000); // may konting delay bago mag next round
+        }, 1000);               // may konting delay bago mag next round
     }
 }
 
@@ -100,7 +96,7 @@ function endGame() {
 // Play Again button functions
 document.getElementById('play-again').addEventListener('click', function () {
     resetGame();                       // reset game data
-    gameOverScreen.style.display = 'none'; // hide game-over screen
+    gameOverScreen.style.display = 'none'; // hide game-over screen kaya non
     playSimon();                       // start a new game
 });
 
@@ -110,7 +106,6 @@ function resetGame() {
     userSequence = [];
     score = 0;
     clickable = false;
-    flashSpeed = 600; // Reset flash speed!
     updateScore();
 }
 
