@@ -1,36 +1,34 @@
-const colors = ['teal', 'lightblue', 'pink', 'lightyellow'];
-let simonSequence = [];
-let score = 0;
-let highScore = 0;
-let clickable = false;
-let userSequence = [];
-let flashSpeed = 600; // starting flash speed (ms)
+const colors = ['teal', 'lightblue', 'pink', 'lightyellow']; 
+let simonSequence = [];  
+let score = 0;          
+let highScore = 0;      
+let clickable = false;   
+let userSequence = [];  
+let flashSpeed = 600; // starting flash speed (ms) 
 
-const panels = document.querySelectorAll('.panel');
-const startButton = document.getElementById('start');
-const scoreDisplay = document.getElementById('score');
-const highScoreDisplay = document.getElementById('high-score');
-const gameOverScreen = document.getElementById('game-over');
-const gameOverText = document.getElementById('game-over-text');
+const panels = document.querySelectorAll('.panel');             
+const startButton = document.getElementById('start');           
+const scoreDisplay = document.getElementById('score');           
+const highScoreDisplay = document.getElementById('high-score');   
+const gameOverScreen = document.getElementById('game-over');     
+const gameOverText = document.getElementById('game-over-text');   
 
-// Flash the panel
+// Function para i flash ang  panel
 function flash(color) {
-    const panel = document.querySelector('.' + color);
-    panel.style.filter = 'brightness(1.5)';
-    panel.style.transform = 'scale(1.1)';
-    setTimeout(function() {
-        panel.style.filter = 'brightness(1)';
-        panel.style.transform = 'scale(1)';
-    }, 300);
+    const panel = document.querySelector('.' + color);    // kunin yung panel by class
+    panel.style.filter = 'brightness(1.5)';               
+    setTimeout(function () {
+        panel.style.filter = 'brightness(1)';             
+    }, 300);  // duration 
 }
 
-// Play Simon's turn
+// Turn ni Simon: add new color + i-play ang buong sequence
 function playSimon() {
     clickable = false;
     userSequence = [];
 
     // Add 10 random colors each round
-    for (let j = 0; j < 10; j++) {
+    for (let j = 0; j < 5; j++) {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         simonSequence.push(randomColor);
     }
@@ -47,67 +45,66 @@ function playSimon() {
     }, simonSequence.length * flashSpeed);
 }
 
-// Handle user click
+// Function pto handle the clicks of user in panel
 function handleUserClick(e) {
-    if (!clickable) return;
+    if (!clickable) return; // ignore kung hindi pa turn ng user
 
-    const color = e.target.getAttribute('data-color');
-    if (!color) return; // Ignore clicks on elements without a valid data-color
+    // alamin kung anong kulay ang pinindot ng user sa game
+    const color = e.target.getAttribute('data-color'); 
+    userSequence.push(color);                          // idagdag sa user sequence
 
-    userSequence.push(color);
-
+    // checks bawat pindot kung tama ang sequence kay simon
     for (let i = 0; i < userSequence.length; i++) {
         if (userSequence[i] !== simonSequence[i]) {
-            endGame();
+            endGame(); // kung may mali, end game agad
             return;
         }
     }
 
-    score++;
+    score++;      // +! sa score
     updateScore();
 
+    // if complete at tama ang sequence, edii next round
     if (userSequence.length === simonSequence.length) {
-        setTimeout(() => {
+        setTimeout(function () {
             playSimon();
-        }, 1000);
+        }, 1000); // may konting delay bago mag next round
     }
 }
 
-// Update score
+// Function para i-update ang score at high score
 function updateScore() {
-    scoreDisplay.innerHTML = "Score: " + score;
-    scoreDisplay.style.transition = "color 0.3s";
-    scoreDisplay.style.color = "yellow";
-    setTimeout(() => {
-        scoreDisplay.style.color = "white";
+    scoreDisplay.innerHTML = "Score: " + score;       // display ang current score
+    scoreDisplay.style.transition = "color 0.3s";  
+    scoreDisplay.style.color = "yellow";              // flash yung score text
+
+    setTimeout(function () {
+        scoreDisplay.style.color = "white";           // balik sa original na coplor
     }, 300);
 
+    // check kung need new high score
     if (score > highScore) {
         highScore = score;
         highScoreDisplay.innerHTML = "High Score: " + highScore;
     }
-
-    // Speed up flash every 10 points
-    if (score % 10 === 0 && flashSpeed > 200) {
-        flashSpeed -= 50;
-    }
 }
 
-// End the game
+// Function para matapos ang game kapag nagkamali si user
 function endGame() {
-    clickable = false;
-    gameOverText.innerHTML = `Game Over<br>Final Score: ${score}<br>High Score: ${highScore}`;
-    gameOverScreen.style.display = 'flex';
+    clickable = false;  // stop user from clicking
+    gameOverText.innerHTML = `Game Over<br>Final Score: ${score}<br>High Score: ${highScore}`; // display result
+    gameOverScreen.style.display = 'flex';  // show game over screen
+    startButton.style.display = 'block';    // ibalik ang start button
 }
 
-// Restart the game
-document.getElementById('play-again').addEventListener('click', () => {
-    resetGame();
-    gameOverScreen.style.display = 'none';
-    playSimon();
+// Play Again button functions
+document.getElementById('play-again').addEventListener('click', function () {
+    resetGame();                       // reset game data
+    gameOverScreen.style.display = 'none'; // hide game-over screen
+    playSimon();                       // start a new game
 });
 
-// Reset everything
+// Resets all the game values
 function resetGame() {
     simonSequence = [];
     userSequence = [];
@@ -117,12 +114,14 @@ function resetGame() {
     updateScore();
 }
 
-// Event Listeners
-panels.forEach(panel => {
-    panel.addEventListener('click', handleUserClick);
+// Add event listener for eachh panel
+panels.forEach(function (panel) {
+    panel.addEventListener('click', handleUserClick); // pag-click ng color, mag work si handleUserClick 
 });
 
-startButton.addEventListener('click', () => {
-    resetGame();
-    playSimon();
+// Start button function
+startButton.addEventListener('click', function () {
+    startButton.style.display = 'none'; // hides start button
+    resetGame();                        
+    playSimon();                       
 });
