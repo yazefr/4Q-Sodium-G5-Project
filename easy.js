@@ -1,9 +1,32 @@
+
+Conversation opened. 1 unread message.
+
+Skip to content
+Using Philippine Science High School - SOCCSKSARGEN Region Campus Mail with screen readers
+
+1 of 738
+Fwd: cs
+Inbox
+
+SITTIE TAZNIMA MADID
+4:11 PM (0 minutes ago)
+to me
+
+
+
+---------- Forwarded message ---------
+From: SITTIE TAZNIMA MADID <stsmadid22@src.pshs.edu.ph>
+Date: Wed, Apr 30, 2025 at 4:09 PM
+Subject: cs
+To: SITTIE TAZNIMA MADID <stsmadid22@src.pshs.edu.ph>, WENDY MAXINE BAGUIO <wendymbaguio@src.pshs.edu.ph>
+
+
 const colors = ['teal', 'lightblue', 'pink', 'lightyellow']; 
 let simonSequence = [];  
 let score = 0;          
 let highScore = 0;      
 let clickable = false;   
-let userSequence = [];  
+let userSequence = [];   
 
 const panels = document.querySelectorAll('.panel');             
 const startButton = document.getElementById('start');           
@@ -19,6 +42,26 @@ function flash(color) {
     setTimeout(function () {
         panel.style.filter = 'brightness(1)';             
     }, 300);  // duration 
+}
+
+// Turn ni Simon: add new color + i-play ang buong sequence
+function playSimon() {
+    clickable = false;                          // bawal pa i click        
+    userSequence = [];                          // i reset nung user sequence
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]; // random na kulay
+    simonSequence.push(randomColor);            // idagdag sa sequence kaya pushh
+
+    // flash ang buong sequence ni Simon
+    for (let i = 0; i < simonSequence.length; i++) {
+        setTimeout(function () {
+            flash(simonSequence[i]);
+        }, i * 600); // may delay bawat kulay
+    }
+
+    // after ng sequence, allow na si user mag-click
+    setTimeout(function () {
+        clickable = true;
+    }, simonSequence.length * 600);
 }
 
 // Function pto handle the clicks of user in panel
@@ -41,10 +84,10 @@ function handleUserClick(e) {
     updateScore();
 
     // if complete at tama ang sequence, edii next round
-    if (userSequence.length === simonSequence.length) {
+    if (userSequence.length == simonSequence.length) {
         setTimeout(function () {
             playSimon();
-        }, 1000); // may konting delay bago mag next round
+        }, 1000);               // may konting delay bago mag next round
     }
 }
 
@@ -76,7 +119,7 @@ function endGame() {
 // Play Again button functions
 document.getElementById('play-again').addEventListener('click', function () {
     resetGame();                       // reset game data
-    gameOverScreen.style.display = 'none'; // hide game-over screen
+    gameOverScreen.style.display = 'none'; // hide game-over screen kaya non
     playSimon();                       // start a new game
 });
 
@@ -100,5 +143,3 @@ startButton.addEventListener('click', function () {
     resetGame();                        
     playSimon();                       
 });
-
-
