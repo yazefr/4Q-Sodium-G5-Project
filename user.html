@@ -1,297 +1,101 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Login Page</title>
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                margin: 0;
-                color: white;
-                background-repeat: no-repeat;
-                background-attachment: fixed;   
-                text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.7);
-                font-family: "Times New Roman", serif;
-                text-align: center;
-                background-image: url(space2.png);
-                background-size: cover;
-                background-position: center;
-                overflow-x: hidden;
-                overflow-y: hidden;
-            }
-            
-            /* Header */
-            .header {
-                position: relative; 
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 50px;
-                background-color: #000;
-                padding: 10px 20px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-            .container-1 {
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-                max-width: 1200px;
-                margin: 0 auto;
-                align-items: center;
-            }
-            .nav-list {
-                list-style: none;
-                display: flex;
-                gap: 30px;
-                margin: 0;
-                padding: 0;
-            }
-            .nav-list a {
-                text-decoration: none;
-                color: #ffffff;
-                font-size: 20px;
-                font-weight: 700;
-                font-family: 'Exo 2', sans-serif !important;
-                text-transform: uppercase;
-                padding: 15px 10px;
-                letter-spacing: 2px;
-                position: relative;
-                transition: color 0.2s ease;
-            }
-            .nav-list a::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                bottom: -2px;
-                width: 0;
-                height: 3px;
-                background-color: #ff4655;
-                transition: width 0.3s ease;
-                border-radius: 5px;
-            }
-            .nav-list a:hover::after, .nav-list a:active::after {
-                width: 100%;
-                background-color: #ff4655;
-            }
-            .nav-list a:hover, #nav-active:hover{
-                color: #ff4651;
-            }
-            .nav-list a:active, #nav-active:active{
-                color: #ffffff;
-            }
-            #nav-active {
-                text-decoration: none;
-                color: #e73737;
-                font-size: 20px;
-                font-weight: 700;
-                font-family: 'Exo 2', sans-serif !important;
-                text-transform: uppercase;
-                padding: 15px 10px;
-                letter-spacing: 2px;
-                position: relative;
-                transition: color 0.2s ease;
-            }
-            .actions {
-                display: flex;
-                right: 20px;
-                align-items: center;
-                gap: 10px;
-            }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-1">
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="choice.html">Games</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-            /* Section */
-            .login-container {
-                background: white;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                width: 350px;
-                margin-top: 20px;
-                font-size: 1.3rem;
-                color: black;
-            }
-            .login-container h2 {
-                margin-bottom: 20px;
-            }
-            .login-container input {
-                width: 250px;
-                padding: 10px;
-                font-size: 1.3rem;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-            .login-container button {
-                width: 250px;
-                padding: 10px;
-                background: #131313;
-                border: none;
-                color: white;
-                border-radius: 5px;
-                font-size: 1.3rem;
-                margin-top: 10px;
-            }
-            .login-container button:hover {
-                background: #707478;
-            }
-            .greeting {
-                margin-top: 70px; 
-                padding: 20px;
-                border-radius: 10px;
-                font-size: 1.5rem;
-            }
-            .button-container {
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-                margin-top: 20px;
-                visibility: hidden; /* Initially hiddennn*/
-            }
-            .button {
-                font-size: 1.3rem;
-                margin-top: 20px;
-                width: 100px;
-                text-decoration: none;
-                color: black;
-                font-weight: bold;
-                background-color: white;
-                padding: 10px 10px;
-                border-radius: 30px;
-                border: 2px solid black;
-                display: inline-block;
-                text-align: center;
-                cursor: pointer;
-            }
-            .button:hover {
-                transform: scale(1.1);
-            }
+    <!-- Greeting Section -->
+    <section class="greeting">
+        <h2 id="greeting"></h2> 
+    </section>
 
-            /* Footer */
-            .footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                text-align: center;
-                height: 150px;
-                margin-top: 20px;
-                padding-top: 10px;
+    <!-- Login Section -->
+    <section class="login-container">
+        <h2 class="h2-login">Login</h2>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" autocomplete="username">
+            <button type="submit" aria-label="Login to your account">Login</button>
+        </form>
+    </section> 
+
+    <!-- Buttons Section -->
+    <section class="button-container">
+        <a href="choice.html" class="button play-button">Play</a>
+        <button id="logoutBtn" class="button">Logout</button>
+    </section>
+
+    <!-- Script -->
+    <script>
+        // Sets username in localStorage
+        function setUsername(username) {
+            localStorage.setItem("username", username);
+        }
+
+        // Gets username from localStorage
+        function getUsername() {
+            return localStorage.getItem("username");
+        }
+
+        // On page load, greet user and toggle buttons
+        window.onload = function () {
+            var username = getUsername();
+            if (username) {
+                document.getElementById("greeting").innerHTML = "Welcome, " + username + "!!!";
+                document.querySelector(".button-container").style.visibility = "visible";
+            } else {
+                document.getElementById("greeting").innerHTML = "Welcome, guest!";
+                document.querySelector(".button-container").style.visibility = "hidden";
             }
-            .p-footer {
-                font-size: 1.5rem;
-                font-weight: normal;
-                margin-bottom: 30px;
+        }
+
+        // Handle form submission
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var input = document.getElementById("username");
+            var username = input.value.trim();
+
+            if (/^[A-Za-z0-9]+$/.test(username)) {
+                setUsername(username);
+                location.reload();
+            } else {
+                alert("Try again! Username must contain only letters and numbers.");
             }
-            .footer-info {
-                text-align: center;
-                align-items: center;
-            }
-            footer a {
-                color: white; 
-                text-decoration: none;
-                font-size: 1.5rem;
-                font-weight: normal;
-                margin-bottom: 30px;
-            }
-            .footer a:hover {
-                text-decoration: underline;
-                color: #e9ebfd;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- Header -->
-        <header class="header">
-            <div class="container-1">
-                <!-- Navigation -->
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="choice.html">Games</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+        });
 
-        <!-- Section -->
-        <section class="greeting">
-            <h2 id="greeting"></h2> 
-        </section>
+        // Logout (remove only username)
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            localStorage.removeItem("username");
+            location.reload();
+        });
+    </script>
 
-        <section class="login-container">
-            <h2 class="h2-login">Login</h2>
-            <form>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username">
-                <button type="submit">Login</button>
-            </form>
-        </section> 
-
-        <section class="button-container">
-            <a href="choice.html" class="button play-button">Play</a>
-            <button id="logoutBtn" class="button">Logout</button>
-        </section>
-
-        <script>
-            // Sets username in localStorage
-            function setUsername(username) {
-                localStorage.setItem("username", username); // Save username in localStorage
-            }
-
-            // Gets username from localStorage
-            function getUsername() {
-                return localStorage.getItem("username"); // Retrieve username from localStorage
-            }
-
-            // Greet the user when the page loads
-            window.onload = function () {
-                var username = getUsername();
-                if (username) {
-                    document.getElementById("greeting").innerHTML = "Welcome, " + username + "!!!";
-                    document.querySelector(".button-container").style.visibility = "visible"; // Show Play button
-                } else {
-                    document.getElementById("greeting").innerHTML = "Welcome, guest!";
-                    document.querySelector(".button-container").style.visibility = "hidden"; // Hide Play button
-                }
-            }
-
-            // Handle form submission
-            document.querySelector("form").addEventListener("submit", function (e) {
-                e.preventDefault(); // Prevent form submission and page reload
-                var input = document.getElementById("username");
-                var username = input.value.trim();
-
-                // Check if the username contains only letters and numbers
-                if (/^[A-Za-z0-9]+$/.test(username)) {
-                    setUsername(username); // Save the username to localStorage
-                    location.reload(); // Reload the page to greet the user
-                } else {
-                    alert("Try again! Username must contain only letters and numbers.");
-                }
-            });
-
-            // Logout functionality using clear() to clear all localStorage items
-            document.getElementById("logoutBtn").addEventListener("click", function () {
-                localStorage.clear(); // Clear all items from localStorage
-                location.reload(); // Reload the page to reflect logout
-            });
-        </script>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <br><br><br>
-            <p class="p-footer">
-                Copyright &copy;2025 <a href="#">Simon Says</a> 
-                | <a class="footer-a" href="#">SimonSays.com</a>
-                | <a class="footer-a" href="#">Sitemap</a>
-                | <a class="footer-a" href="#">Privacy Policy</a>
-                | <a class="footer-a" href="#">Terms of Service</a>
-            </p>
-        </footer>
-    </body>
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="p-footer">
+            Copyright &copy;2025 
+            <a href="#">Simon Says</a> |
+            <a href="#">SimonSays.com</a> |
+            <a href="#">Sitemap</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </p>
+    </footer>
+</body>
 </html>
