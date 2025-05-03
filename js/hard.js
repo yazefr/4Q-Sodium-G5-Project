@@ -1,12 +1,17 @@
-
 const colors = ['teal', 'lightblue', 'pink', 'lightyellow']; 
 let simonSequence = [];  
-let score = 0;          
-let highScore = 0;      
+let score = 0;           
 let clickable = false;   
 let userSequence = [];  
-let flashSpeed = 600; // starting flash speed (ms) 
+let highScore = 0;
+let flashSpeed = 200;
+if (localStorage.getItem("highScore")) {
+    highScore = parseInt(localStorage.getItem("highScore"));
+} else {
+    highScore = 0;
+}
 
+const turnIndicator = document.getElementById('turn-indicator');
 const panels = document.querySelectorAll('.panel');             
 const startButton = document.getElementById('start');           
 const scoreDisplay = document.getElementById('score');           
@@ -14,95 +19,93 @@ const highScoreDisplay = document.getElementById('high-score');
 const gameOverScreen = document.getElementById('game-over');     
 const gameOverText = document.getElementById('game-over-text');   
 
+highScoreDisplay.innerHTML = "High Score: " + highScore;
+
 // Function para i flash ang  panel
 function flash(color) {
-    const panel = document.querySelector('.' + color);    // kunin yung panel by class
+    const panel = document.querySelector('.' + color);    
     panel.style.filter = 'brightness(1.5)';               
     setTimeout(function () {
         panel.style.filter = 'brightness(1)';             
-    }, 300);  // duration 
+    }, 200); 
 }
 
 // Turn ni Simon: add new color + i-play ang buong sequence
 function playSimon() {
     clickable = false;
     userSequence = [];
+    turnIndicator.innerText = "Simon's Turn...";
 
-    // Add 10 random colors each round
     for (let j = 0; j < 5; j++) {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         simonSequence.push(randomColor);
     }
 
-    // Flash all colors in the sequence
     for (let i = 0; i < simonSequence.length; i++) {
-        setTimeout(() => {
+        setTimeout(function () {
             flash(simonSequence[i]);
         }, i * flashSpeed);
     }
 
-    setTimeout(() => {
+    setTimeout(function () {
         clickable = true;
+        turnIndicator.innerText = "Your Turn!";
     }, simonSequence.length * flashSpeed);
 }
 
 // Function pto handle the clicks of user in panel
 function handleUserClick(e) {
-    if (!clickable) return; // ignore kung hindi pa turn ng user
+    if (!clickable) return;
 
-    // alamin kung anong kulay ang pinindot ng user sa game
     const color = e.target.getAttribute('data-color'); 
-    userSequence.push(color);                          // idagdag sa user sequence
+    userSequence.push(color);                          
 
-    // checks bawat pindot kung tama ang sequence kay simon
     for (let i = 0; i < userSequence.length; i++) {
-        if (userSequence[i] !== simonSequence[i]) {
-            endGame(); // kung may mali, end game agad
+        if (userSequence[i] != simonSequence[i]) {
+            endGame();
             return;
         }
     }
 
-    score++;      // +! sa score
+    score++;      
     updateScore();
 
-    // if complete at tama ang sequence, edii next round
-    if (userSequence.length === simonSequence.length) {
+    if (userSequence.length == simonSequence.length) {
         setTimeout(function () {
             playSimon();
-        }, 1000); // may konting delay bago mag next round
+        }, 1000); 
     }
 }
 
 // Function para i-update ang score at high score
 function updateScore() {
-    scoreDisplay.innerHTML = "Score: " + score;       // display ang current score
+    scoreDisplay.innerHTML = "Score: " + score;       
     scoreDisplay.style.transition = "color 0.3s";  
-    scoreDisplay.style.color = "yellow";              // flash yung score text
+    scoreDisplay.style.color = "yellow";              
 
     setTimeout(function () {
-        scoreDisplay.style.color = "white";           // balik sa original na coplor
+        scoreDisplay.style.color = "white";           
     }, 300);
 
-    // check kung need new high score
     if (score > highScore) {
         highScore = score;
         highScoreDisplay.innerHTML = "High Score: " + highScore;
+        localStorage.setItem("highScore", highScore); 
     }
 }
 
 // Function para matapos ang game kapag nagkamali si user
 function endGame() {
-    clickable = false;  // stop user from clicking
-    gameOverText.innerHTML = `Game Over<br>Final Score: ${score}<br>High Score: ${highScore}`; // display result
-    gameOverScreen.style.display = 'flex';  // show game over screen
-    startButton.style.display = 'block';    // ibalik ang start button
+    clickable = false;  
+    gameOverText.innerHTML = `Game Over<br>Final Score: ${score}<br>High Score: ${highScore}`;
+    gameOverScreen.style.display = 'flex';  
+    startButton.style.display = 'block';    
 }
 
 // Play Again button functions
 document.getElementById('play-again').addEventListener('click', function () {
-    resetGame();                       // reset game data
-    gameOverScreen.style.display = 'none'; // hide game-over screen
-    playSimon();                       // start a new game
+    resetGame();                      
+    gameOverScreen.style.display = 'none'; 
 });
 
 // Resets all the game values
@@ -111,18 +114,18 @@ function resetGame() {
     userSequence = [];
     score = 0;
     clickable = false;
-    flashSpeed = 600; // Reset flash speed!
+    flashSpeed = 600; 
     updateScore();
 }
 
 // Add event listener for eachh panel
 panels.forEach(function (panel) {
-    panel.addEventListener('click', handleUserClick); // pag-click ng color, mag work si handleUserClick 
+    panel.addEventListener('click', handleUserClick); 
 });
 
 // Start button function
 startButton.addEventListener('click', function () {
-    startButton.style.display = 'none'; // hides start button
+    startButton.style.display = 'none'; 
     resetGame();                        
     playSimon();                       
 });
