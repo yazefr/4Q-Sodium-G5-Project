@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Login Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container-1">
+            <!-- Navigation -->
             <nav class="nav">
                 <ul class="nav-list">
                     <li><a href="index.html">Home</a></li>
@@ -20,40 +19,32 @@
         </div>
     </header>
 
-    <!-- Greeting Section -->
+    <!-- Section -->
     <section class="greeting">
         <h2 id="greeting"></h2> 
     </section>
 
-    <!-- Login Section -->
     <section class="login-container">
         <h2 class="h2-login">Login</h2>
         <form>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" autocomplete="username">
-            <button type="submit" aria-label="Login to your account">Login</button>
+            <input type="text" id="username" name="username">
+            <button type="submit">Login</button>
         </form>
     </section> 
 
-    <!-- Buttons Section -->
     <section class="button-container">
         <a href="choice.html" class="button play-button">Play</a>
         <button id="logoutBtn" class="button">Logout</button>
     </section>
 
-    <!-- Script -->
     <script>
-        // Sets username in localStorage
         function setUsername(username) {
             localStorage.setItem("username", username);
         }
-
-        // Gets username from localStorage
         function getUsername() {
             return localStorage.getItem("username");
         }
-
-        // On page load, greet user and toggle buttons
         window.onload = function () {
             var username = getUsername();
             if (username) {
@@ -64,13 +55,10 @@
                 document.querySelector(".button-container").style.visibility = "hidden";
             }
         }
-
-        // Handle form submission
         document.querySelector("form").addEventListener("submit", function (e) {
             e.preventDefault();
             var input = document.getElementById("username");
             var username = input.value.trim();
-
             if (/^[A-Za-z0-9]+$/.test(username)) {
                 setUsername(username);
                 location.reload();
@@ -78,23 +66,21 @@
                 alert("Try again! Username must contain only letters and numbers.");
             }
         });
-
-        // Logout (remove only username)
         document.getElementById("logoutBtn").addEventListener("click", function () {
-            localStorage.removeItem("username");
+            localStorage.clear();
             location.reload();
         });
     </script>
 
     <!-- Footer -->
     <footer class="footer">
+        <br><br><br>
         <p class="p-footer">
-            Copyright &copy;2025 
-            <a href="#">Simon Says</a> |
-            <a href="#">SimonSays.com</a> |
-            <a href="#">Sitemap</a> |
-            <a href="#">Privacy Policy</a> |
-            <a href="#">Terms of Service</a>
+            Copyright &copy;2025 <a href="#">Simon Says</a> 
+            | <a class="footer-a" href="#">SimonSays.com</a>
+            | <a class="footer-a" href="#">Sitemap</a>
+            | <a class="footer-a" href="#">Privacy Policy</a>
+            | <a class="footer-a" href="#">Terms of Service</a>
         </p>
     </footer>
 </body>
